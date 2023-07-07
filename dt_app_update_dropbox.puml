@@ -1,0 +1,18 @@
+@startuml
+participant ElectronUpdater as Desktop
+Desktop -> CloudFront : get latest.yml
+CloudFront -> DesktopApplication : redirect
+DesktopApplication -> IntelligenceApp : /download/latest.yml
+IntelligenceApp--> DesktopApplication : 307 redirect url=dropbox url
+DesktopApplication--> Desktop
+Desktop -> dropbox : get latest.yml
+dropbox --> Desktop : latest.yml
+Desktop -> Desktop : compare version
+Desktop -> CloudFront : get exe
+CloudFront -> DesktopApplication : redirect
+DesktopApplication -> IntelligenceApp : /download/GGQ Setup xxx.exe
+IntelligenceApp--> DesktopApplication : 307 redirect url=dropbox url
+DesktopApplication--> Desktop
+Desktop -> dropbox : get exe
+dropbox --> Desktop : exe
+@enduml
